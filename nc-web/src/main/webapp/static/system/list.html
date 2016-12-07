@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0" />
+<title>列表界面</title>
+
+	<link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.min.css" />
+	<script src="/static/lib/jquery/jquery-1.11.3.min.js"></script>
+	<script src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+	.nc-right{
+		float:right;
+		margin-right: 10px;
+	}
+
+</style>
+</head>
+
+<body>
+<div class="col-md-12 navbar-btn">
+	<!-- 查询栏 -->
+	<div class="input-group search-group input-group-sm float-left">
+		<input type="text" class="form-control"  placeholder="编号/名称"/>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-primary" role="btn" ><span class="glyphicon glyphicon-search" ></span> 查询</button>
+        </span>
+	</div>
+</div>
+<button class="btn btn-sm btn-primary nc-right disabled" >编辑</button>
+<button class="btn btn-sm btn-primary  nc-right disabled" >删除</button>
+<!-- 主表表格开始 -->
+<div class="col-md-12 margin-top-15">
+	<!-- 主表表格 -->
+	<table class="table table-striped table-hover standtable standtable-sm text-center">
+		<thead>
+		<tr>
+			<th class="text-center">编号</th>
+			<th class="text-center">名称</th>
+		</tr>
+		</thead>
+		<tbody >
+		<tr class="nc-tr">
+			<td >000001</td>
+			<td >技术部</td>
+		</tr>
+		<tr class="nc-tr">
+			<td >000002</td>
+			<td >销售部</td>
+		</tr>
+		<tr class="nc-tr">
+			<td >000003</td>
+			<td >人力资源部</td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
+<script>
+	$(".nc-tr").click(function(){
+		$(".nc-right").removeClass("disabled");
+		window.location.href="/static/system/add.html";
+	});
+
+</script>
+
+</body>
+
+</html>
