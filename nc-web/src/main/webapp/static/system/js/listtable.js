@@ -32,7 +32,7 @@ var TableInit = function () {
             search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
             strictSearch: true,
             showColumns: false,                  //是否显示所有的列
-            showRefresh: false,                  //是否显示刷新按钮
+            showRefresh: true,                  //是否显示刷新按钮
             minimumCountColumns: 2,             //最少允许的列数
             clickToSelect: true,                //是否启用点击选中行
             height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
@@ -73,14 +73,12 @@ var ButtonInit = function () {
     oInit.Init = function () {
 
         $("#btn_edit").click(function () {
-
-            var arrselections = $("#tb_departments").bootstrapTable('getData');
-            //alert($arrselections);
-            //alert($arrselections.length);
-            //if ($arrselections.length > 1) {
-            //    alert('只能选择一行进行编辑');
-            //    return;
-            //}
+            alert($("#tb_departments").bootstrapTable('getSelections'));
+            var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+            if (arrselections.length > 1) {
+                alert('只能选择一行进行编辑');
+                return;
+            }
             if (arrselections.length <= 0) {
                 alert('请选择有效数据');
                 return;
@@ -94,37 +92,35 @@ var ButtonInit = function () {
             $('#myModal').modal();
         });
 
-        //$("#btn_delete").click(function () {
-        //    var arrselections = $("#tb_departments").bootstrapTable('getSelections');
-        //    if (arrselections.length <= 0) {
-        //        toastr.warning('请选择有效数据');
-        //        return;
-        //    }
+        $("#btn_delete").click(function () {
+            var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+            if (arrselections.length <= 0) {
+                alert('请选择有效数据');
+                return;
+            }
+            if (confirm("确认要删除选择的数据吗？")==true) {
+                $.ajax({
+                    type: "post",
+                    url: "/Home/Delete",
+                    data: {"": JSON.stringify(arrselections)},
+                    success: function (data, status) {
+                        if (status == "success") {
+                            alert('提交数据成功');
+                            $("#tb_departments").bootstrapTable('refresh');
+                        }
+                    },
+                    error: function () {
+                        alert('Error');
+                    },
+                    complete: function () {
 
-        //    Ewin.confirm({ message: "确认要删除选择的数据吗？" }).on(function (e) {
-        //        if (!e) {
-        //            return;
-        //        }
-        //        $.ajax({
-        //            type: "post",
-        //            url: "/Home/Delete",
-        //            data: { "": JSON.stringify(arrselections) },
-        //            success: function (data, status) {
-        //                if (status == "success") {
-        //                    toastr.success('提交数据成功');
-        //                    $("#tb_departments").bootstrapTable('refresh');
-        //                }
-        //            },
-        //            error: function () {
-        //                toastr.error('Error');
-        //            },
-        //            complete: function () {
-
-        //            }
-
-        //        });
-        //    });
-        //});
+                    }
+                });
+            }
+        else{
+            return false;
+        }
+    });
 
         //$("#btn_submit").click(function () {
         //    postdata.DEPARTMENT_NAME = $("#txt_departmentname").val();
