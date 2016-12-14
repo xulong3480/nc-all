@@ -6,28 +6,50 @@
 <title>列表界面</title>
 
 	<link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/static/system/css/docman.css"/>
+	<link rel="stylesheet" href="/static/lib/font-awesome/css/font-awesome.min.css"/>
 	<script src="/static/lib/jquery/jquery-1.11.3.min.js"></script>
 	<script src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
 
 </head>
 
 <body>
-
+<!--
+<div class="container">
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="#">档案列表</a>
 		</div>
 		<div class=" navbar-collapse" >
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="/static/system/list.html">物料档案</a></li>
+			<ul class="nav navbar-nav menu-listmenu">
+				<li ><a href="/static/system/list.html">物料档案</a></li>
 				<li><a href="/static/system/list.html">人员档案</a></li>
 				<li><a href="/static/system/list.html">部门档案</a></li>
 			</ul>
 		</div>
 	</div>
 </nav>
-
+</div>
+-->
+<div class="x_panel col-md-12">
+	<div class="x_title col-md-12">
+		<h3>档案类型</h3>
+	</div>
+	<div class="x_content col-md-12">
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class=" navbar-collapse">
+					<ul class="nav  navbar-collapse">
+						<li ><a href="/static/system/listtable.html">物料档案<span class="fa fa-angle-right"></span></a></li>
+						<li><a href="/static/system/listtable.html">人员档案<span class="fa fa-angle-right"></span></a></li>
+						<li><a href="/static/system/listtable.html">部门档案<span class="fa fa-angle-right"></span></a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+</div>
 </body>
 
 </html>

@@ -1,0 +1,140 @@
+html,body{
+    height: 100%;
+}
+h3{
+    color: #428bca;
+}
+.app-title{
+    color: #428bca;
+    text-align: center;
+    padding: 10%;
+}
+
+ul li span {
+    float: right;
+}
+
+.nc-right{
+    float:right;
+    margin-right: 10px;
+}
+
+.login-box{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center space-between;
+}
+.login-input-group{
+    height: 300px;
+    display: flex;
+    flex-direction:  column;
+    justify-content: center;
+}
+
+.login-input{
+    margin-top: 10px;
+}
+
+.menu-listmenu >li{
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+.nav li:hover{
+    background-color:#428bca ;
+}
+
+.list-qry-btn-group{
+    padding-right: 5px;
+}
+
+.x_panel {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 17px;
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #E6E9ED;
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    column-break-inside: avoid;
+    opacity: 1;
+    transition: all .2s ease; }
+
+.x_title {
+    border-bottom: 2px solid #E6E9ED;
+    padding: 1px 5px 6px;
+    margin-bottom: 10px; }
+
+/*.x_title .filter {*/
+    /*width: 40%;*/
+    /*float: right; }*/
+
+.x_title h2 {
+    margin: 5px 0 6px;
+    float: left;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap; }
+
+/*.x_title h2 small {*/
+    /*margin-left: 10px; }*/
+
+/*.x_title span {*/
+    /*color: #BDBDBD; }*/
+
+.x_content {
+    padding: 0 5px 6px;
+    position: relative;
+    width: 100%;
+    float: left;
+    clear: both;
+    margin-top: 5px; }
+
+/*.x_content h4 {*/
+    /*font-size: 16px;*/
+    /*font-weight: 500; }*/
+.panel_toolbox {
+    float: right;
+    min-width: 70px; }
+
+.panel_toolbox > li {
+    float: left;
+    cursor: pointer; }
+
+.panel_toolbox > li > a {
+    padding: 5px;
+    /*color: #C5C7CB;*/
+    font-size: 14px; }
+
+.tag_panel{
+    display: flex;
+    justify-content: space-between;
+}
+
+.tag_panel h2{
+    margin: 5px 0 6px;
+    color: #428bca;
+}
+
+/*.tag_panel span{*/
+    /*padding: 3px;*/
+    /*font-size: 14px;*/
+/*}*/
+.tag_panel > ul{
+    display: flex;
+    align-items: center;
+}
+
+.tag_panel > ul > li > a{
+    padding: 5px;
+    /*display: flex;*/
+    /*color: black;*/
+     }
+
+.panel_toolbox > li > a:hover {
+    background: #F5F7FA; }

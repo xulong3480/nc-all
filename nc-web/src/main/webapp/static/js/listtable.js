@@ -8,15 +8,37 @@ $(function () {
     var oButtonInit = new ButtonInit();
     oButtonInit.Init();
 
+    //初始化面板隐藏
+    var sPanelInit = new seatchPanelInit() ;
+    sPanelInit.Init() ;
 });
 
+var seatchPanelInit = function () {
+    var sPanelInit = new Object() ;
+    sPanelInit.Init = function () {
+        $("#search_panel").css("display","none") ;
+    } ;
 
-var TableInit = function () {
+    return sPanelInit ;
+}
+
+
+var TableInit;
+TableInit = function () {
     var oTableInit = new Object();
     //初始化Table
     oTableInit.Init = function () {
+
+        $.ajax({
+            type: "post",
+            url: "/listtable?doctype=",
+            success: function (demand, status) {
+                if (status == "success") {
+                    var str="";
+                    obj= $.parseJSON(demand);
+                    alert(obj.data);
+
         $('#tb_departments').bootstrapTable({
-            url: '/static/system/add.html',         //请求后台的URL（*）
             method: 'get',                      //请求方式（*）
             toolbar: '#toolbar',                //工具按钮用哪个容器
             striped: true,                      //是否显示行间隔色
@@ -26,30 +48,42 @@ var TableInit = function () {
             sortOrder: "asc",                   //排序方式
             queryParams: oTableInit.queryParams,//传递参数（*）
             sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
-            pageNumber:1,                       //初始化加载第一页，默认第一页
+            pageNumber: 1,                       //初始化加载第一页，默认第一页
             pageSize: 10,                       //每页的记录行数（*）
             pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
             search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
             strictSearch: true,
             showColumns: false,                  //是否显示所有的列
-            showRefresh: true,                  //是否显示刷新按钮
+            showRefresh: false,                  //是否显示刷新按钮
             minimumCountColumns: 2,             //最少允许的列数
             clickToSelect: true,                //是否启用点击选中行
             height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
             uniqueId: "id",                     //每一行的唯一标识，一般为主键列
-            showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+            showToggle: false,                    //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
-            detailView: false,                   //是否显示父子表
+            detailView: true,                   //是否显示父子表
             columns: [{
                 checkbox: true
             }, {
-                field: 'price',
+                field: 'doctypecode',
                 title: '编码'
             }, {
-                field: 'name',
+                field: 'doctypename',
                 title: '名称'
-            },  ]
+            },],
+            data: obj.data,
+            detailFormatter:listTableDetail
         });
+                }
+            },
+            error: function () {
+                alert('Error');
+            },
+            complete: function () {
+
+            }
+        });
+
     };
 
     //得到查询的参数
@@ -65,6 +99,16 @@ var TableInit = function () {
     return oTableInit;
 };
 
+var listTableDetail = function(index, row) {
+    var html = [];
+    html.push('<p><b>编码:</b> 123</p>');
+    html.push('<p><b>名称:</b> test</p>');
+    html.push('<p><b>说明:</b> 测试数据</p>');
+    html.push('<p><b>日期:</b> 2016-01-03</p>');
+    return html.join('');
+    return '';
+}
+
 
 var ButtonInit = function () {
     var oInit = new Object();
@@ -72,6 +116,15 @@ var ButtonInit = function () {
 
     oInit.Init = function () {
 
+        $("#btn_qry_ok").click(function () {
+            $("#search_panel").css("display","none") ;
+        }) ;
+        $("#btn_qry_clear").click(function () {
+            $(":input").val() ;
+        }) ;
+        $("#btn_add").click(function () {
+            window.location.href = "/system/add" ;
+        }) ;
         $("#btn_edit").click(function () {
             alert($("#tb_departments").bootstrapTable('getSelections'));
             var arrselections = $("#tb_departments").bootstrapTable('getSelections');
@@ -83,13 +136,8 @@ var ButtonInit = function () {
                 alert('请选择有效数据');
                 return;
             }
-            alert(arrselections[0].name);
-            $("#myModalLabel").text("编辑");
-
-            $("#txt_departmentname").val(arrselections[0].code);
-            $("#txt_parentdepartment").val(arrselections[0].price);
-            postdata.DEPARTMENT_ID = arrselections[0].DEPARTMENT_ID;
-            $('#myModal').modal();
+            alert(arrselections[0].doctypecode);
+            window.location.href = "/system/add?doctypecode="+arrselections[0].doctypecode ;
         });
 
         $("#btn_delete").click(function () {
@@ -117,10 +165,14 @@ var ButtonInit = function () {
                     }
                 });
             }
-        else{
-            return false;
-        }
-    });
+            else{
+                return false;
+            }
+        });
+
+        $("#btn_query").click(function () {
+            $("#search_panel").css("display","block") ;
+        }) ;
 
         //$("#btn_submit").click(function () {
         //    postdata.DEPARTMENT_NAME = $("#txt_departmentname").val();

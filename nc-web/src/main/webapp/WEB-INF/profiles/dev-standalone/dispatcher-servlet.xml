@@ -3,10 +3,13 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util-3.0.xsd"
        default-lazy-init="false">
 
     <context:property-placeholder ignore-unresolvable="true"
@@ -34,16 +37,67 @@
 
     <mvc:default-servlet-handler/>
 
+    <!--<mvc:annotation-driven>-->
+        <!--<mvc:message-converters>-->
+            <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter">-->
+                <!--<constructor-arg name="defaultCharset" value="UTF-8"/>-->
+            <!--</bean>-->
+            <!--<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">-->
+                <!--<property name="supportedMediaTypes">-->
+                    <!--<list>-->
+                        <!--<value>text/html;charset=UTF-8</value>-->
+                        <!--<value>application/json</value>-->
+                    <!--</list>-->
+                <!--</property>-->
+                <!--<property name="features">-->
+                    <!--<list>-->
+                        <!--<value>WriteMapNullValue</value>-->
+                        <!--<value>QuoteFieldNames</value>-->
+                    <!--</list>-->
+                <!--</property>-->
+            <!--</bean>-->
+            <!--&lt;!&ndash;<ref bean="fastJsonHttpMessageConverter" />&ndash;&gt;-->
+        <!--</mvc:message-converters>-->
+    <!--</mvc:annotation-driven>-->
+
     <mvc:annotation-driven>
-        <mvc:message-converters>
+        <mvc:message-converters register-defaults="true">
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <constructor-arg name="defaultCharset" value="UTF-8"/>
+            <constructor-arg name="defaultCharset" value="UTF-8"/>
+            </bean>
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+                <property name="features">
+                    <array>
+                        <!--<value>WriteMapNullValue</value>-->
+                        <!--<value>WriteNullStringAsEmpty</value>-->
+                    </array>
+                </property>
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
 
 
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="${nb.web.maxUploadSize}"/>
-    </bean>
+
+    <!--<bean id="fastJsonHttpMessageConverter"-->
+          <!--class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">-->
+
+        <!--<property name="supportedMediaTypes">-->
+            <!--<list>-->
+                <!--<value>application/json;charset=UTF-8</value>-->
+                <!--<value>text/html;charset=UTF-8</value>&lt;!&ndash; 避免IE出现下载JSON文件的情况 &ndash;&gt;-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--<property name="features">-->
+            <!--<util:list>-->
+                <!--&lt;!&ndash; <value>WriteMapNullValue</value> &ndash;&gt;-->
+                <!--<value>QuoteFieldNames</value>-->
+                <!--<value>WriteDateUseDateFormat</value>-->
+            <!--</util:list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+        <!--<property name="maxUploadSize" value="${nb.web.maxUploadSize}"/>-->
+    <!--</bean>-->
 </beans>
